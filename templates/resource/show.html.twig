@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resource{% endblock %}
+
+{% block body %}
+    <h1>Resource</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ resource.name }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ resource.type }}</td>
+            </tr>
+            <tr>
+                <th>ExchangeId</th>
+                <td>{{ resource.exchangeId }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ resource.id }}</td>
+            </tr>
+            <tr>
+                <th>Locations</th>
+                <td>
+                    {% for location in resource.locations %}
+                        {{ location.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('resource_index') }}">back to list</a>
+
+    <a href="{{ path('resource_edit', {'id': resource.id}) }}">edit</a>
+
+    {{ include('resource/_delete_form.html.twig') }}
+{% endblock %}

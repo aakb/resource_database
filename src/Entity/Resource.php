@@ -17,7 +17,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"},
+ * )
  *
  * @Gedmo\Loggable()
  *
@@ -27,16 +30,22 @@ class Resource extends AbstractEntity
 {
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Gedmo\Versioned()
      */
     private $name;
 
     /**
      * @ORM\Column(type="ResourceType")
+     *
+     * @Gedmo\Versioned()
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Gedmo\Versioned()
      */
     private $exchangeId;
 
@@ -51,6 +60,14 @@ class Resource extends AbstractEntity
     public function __construct()
     {
         $this->locations = new ArrayCollection();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 
     /**

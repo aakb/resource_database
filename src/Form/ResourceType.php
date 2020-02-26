@@ -1,0 +1,46 @@
+<?php
+
+/*
+ * This file is part of aakb/resource_database.
+ *
+ * (c) 2020 ITK Development
+ *
+ * This source file is subject to the MIT license.
+ */
+
+namespace App\Form;
+
+use App\Entity\Resource;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+/**
+ * Class ResourceType.
+ */
+class ResourceType extends AbstractType
+{
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param array                                        $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('name')
+            ->add('type')
+            ->add('exchangeId')
+            ->add('locations')
+        ;
+    }
+
+    /**
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Resource::class,
+        ]);
+    }
+}

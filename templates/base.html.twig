@@ -2,11 +2,16 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Resource Database{% endblock %}</title>
+        {{ encore_entry_link_tags('app') }}
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <h1><a href="{{ path('index') }}">Resourse Database</a></h1>
+        <section>
+            {% block body %}{% endblock %}
+        </section>
+        {{ encore_entry_script_tags('app') }}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
