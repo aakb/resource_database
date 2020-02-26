@@ -4,7 +4,7 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__.'/{src,tests}');
 
 $header = <<<'HEADER'
-This file is part of aakb/booking_service.
+This file is part of aakb/resource_database.
 
 (c) 2020 ITK Development
 
