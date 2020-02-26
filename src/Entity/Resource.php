@@ -11,33 +11,46 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource()
  *
+ * @Gedmo\Loggable()
+ *
  * @ORM\Entity(repositoryClass="App\Repository\ResourceRepository")
  */
-class Resource
+class Resource extends AbstractEntity
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
-     * @return int|null
+     * @ORM\Column(type="ResourceType")
      */
-    public function getId(): ?int
+    private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $exchangeId;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Location", mappedBy="resources")
+     */
+    private $locations;
+
+    /**
+     * Resource constructor.
+     */
+    public function __construct()
     {
-        return $this->id;
+        $this->locations = new ArrayCollection();
     }
 
     /**
@@ -51,11 +64,89 @@ class Resource
     /**
      * @param string $name
      *
-     * @return $this
+     * @return \App\Entity\Resource
      */
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param $type
+     *
+     * @return \App\Entity\Resource
+     */
+    public function setType($type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getExchangeId(): ?string
+    {
+        return $this->exchangeId;
+    }
+
+    /**
+     * @param string|null $exchangeId
+     *
+     * @return \App\Entity\Resource
+     */
+    public function setExchangeId(?string $exchangeId): self
+    {
+        $this->exchangeId = $exchangeId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    /**
+     * @param \App\Entity\Location $location
+     *
+     * @return \App\Entity\Resource
+     */
+    public function addLocation(Location $location): self
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations[] = $location;
+            $location->addResource($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param \App\Entity\Location $location
+     *
+     * @return \App\Entity\Resource
+     */
+    public function removeLocation(Location $location): self
+    {
+        if ($this->locations->contains($location)) {
+            $this->locations->removeElement($location);
+            $location->removeResource($this);
+        }
 
         return $this;
     }
