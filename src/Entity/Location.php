@@ -18,6 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource(
+ *     attributes={"security"="is_granted('ROLE_API')"},
  *     collectionOperations={"get"},
  *     itemOperations={"get"},
  * )
