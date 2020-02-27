@@ -19,6 +19,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * Class CreateUserCommand.
+ */
 class CreateUserCommand extends Command
 {
     /* @var UserPasswordEncoderInterface $passwordEncoder */

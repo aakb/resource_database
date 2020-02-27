@@ -42,16 +42,27 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     *
+     * @return \App\Entity\User
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -63,6 +74,8 @@ class User implements UserInterface
      * A visual identifier that represents this user.
      *
      * @see UserInterface
+     *
+     * @return string
      */
     public function getUsername(): string
     {
@@ -71,6 +84,8 @@ class User implements UserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return array
      */
     public function getRoles(): array
     {
@@ -81,6 +96,11 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array $roles
+     *
+     * @return \App\Entity\User
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -90,12 +110,19 @@ class User implements UserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return string
      */
     public function getPassword(): string
     {
         return (string) $this->password;
     }
 
+    /**
+     * @param string $password
+     *
+     * @return \App\Entity\User
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
